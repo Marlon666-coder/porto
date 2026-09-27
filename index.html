@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Marlo Rizky Valentino — Software Developer</title>
+  <meta name="description" content="Marlo Rizky Valentino — Software Developer, Programmer & Future Engineer. Building the future, one line of code at a time." />
+  <meta name="theme-color" content="#05060a" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="is-loading">
+
+  <!-- =========================================================
+       LOADING SCREEN
+       ========================================================= -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <div class="loader__ring"><span></span><span></span></div>
+      <p class="loader__title" data-glitch="INITIALIZING MARLO.RV...">INITIALIZING MARLO.RV...</p>
+      <ul class="loader__log" id="loaderLog"></ul>
+      <div class="loader__bar"><div class="loader__fill" id="loaderFill"></div></div>
+      <p class="loader__pct"><span id="loaderPct">0</span>%</p>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       GLOBAL FX LAYERS (background, grid, noise, scanlines, cursor)
+       ========================================================= -->
+  <canvas class="bg-canvas" id="bgCanvas" aria-hidden="true"></canvas>
+  <div class="fx-grid" aria-hidden="true"></div>
+  <div class="fx-orbs" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="fx-beams" aria-hidden="true"><i></i><i></i></div>
+  <div class="fx-noise" aria-hidden="true"></div>
+  <div class="fx-scanlines" aria-hidden="true"></div>
+  <div class="fx-mouse-glow" id="mouseGlow" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- =========================================================
+       NAVBAR
+       ========================================================= -->
+  <header class="nav" id="nav">
+    <a href="#home" class="nav__logo" aria-label="Home">
+      <span class="nav__logo-mark" data-bind="logo">MRV</span>
+      <span class="nav__logo-dot"></span>
+    </a>
+
+    <nav class="nav__menu" id="navMenu" aria-label="Main navigation">
+      <a href="#home" class="nav__link">HOME</a>
+      <a href="#about" class="nav__link">ABOUT</a>
+      <a href="#skills" class="nav__link">SKILLS</a>
+      <a href="#projects" class="nav__link">PROJECTS</a>
+      <a href="#experience" class="nav__link">EXPERIENCE</a>
+      <a href="#contact" class="nav__link">CONTACT</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false">
+        <span class="sound-toggle__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="sound-toggle__label">SOUND: OFF</span>
+      </button>
+      <button class="nav__burger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- =========================================================
+         HERO
+         ========================================================= -->
+    <section class="hero" id="home">
+      <!-- Floating hologram labels -->
+      <div class="holo-tag holo-tag--1" data-depth="1.4"><span class="holo-tag__dot"></span>SYSTEM ONLINE</div>
+      <div class="holo-tag holo-tag--2" data-depth="-1.1">MARLO.RV</div>
+      <div class="holo-tag holo-tag--3" data-depth="0.9">DEVELOPER MODE</div>
+      <div class="holo-tag holo-tag--4" data-depth="-1.6">BUILD // CREATE // ITERATE</div>
+
+      <!-- HUD corners -->
+      <div class="hud" aria-hidden="true">
+        <span class="hud__c hud__c--tl"></span><span class="hud__c hud__c--tr"></span>
+        <span class="hud__c hud__c--bl"></span><span class="hud__c hud__c--br"></span>
+        <span class="hud__readout hud__readout--l" id="hudCoords">X: 000 / Y: 000</span>
+        <span class="hud__readout hud__readout--r" id="hudFps">CORE: -- FPS</span>
+      </div>
+
+      <div class="hero__inner">
+        <p class="status-pill"><span class="status-pill__dot"></span><span data-bind="status">AVAILABLE FOR PROJECTS</span></p>
+
+        <!-- HOLOGRAPHIC FIRE CORE -->
+        <div class="core" id="core" aria-hidden="true">
+          <div class="core__stage" id="coreStage">
+            <div class="core__ring core__ring--1"></div>
+            <div class="core__ring core__ring--2"></div>
+            <div class="core__ring core__ring--3"></div>
+            <div class="core__ring core__ring--4"></div>
+          </div>
+          <div class="core__halo"></div>
+          <canvas class="core__fire" id="fireCanvas"></canvas>
+          <canvas class="core__sparks" id="sparkCanvas"></canvas>
+          <div class="core__scan"></div>
+          <div class="core__symbol" id="coreSymbol" data-text="&lt;/&gt;">&lt;/&gt;</div>
+          <div class="core__label core__label--l">ENERGY CORE<br /><b>STABLE</b></div>
+          <div class="core__label core__label--r">TEMP<br /><b id="coreTemp">6,204 K</b></div>
+        </div>
+
+        <p class="hero__kicker" data-bind="tagline">BUILDING THE FUTURE, ONE LINE OF CODE AT A TIME.</p>
+        <h1 class="hero__name" data-bind="name" data-text="MARLO RIZKY VALENTINO">MARLO RIZKY VALENTINO</h1>
+        <p class="hero__role" data-bind="heroRole">SOFTWARE DEVELOPER</p>
+        <p class="hero__desc" data-bind="heroDesc">I build interactive digital experiences, intelligent applications, and creative software solutions.</p>
+
+        <div class="hero__cta">
+          <a href="#projects" class="btn btn--primary"><span>VIEW PROJECTS</span></a>
+          <a href="#contact" class="btn btn--ghost"><span>CONTACT ME</span></a>
+        </div>
+      </div>
+
+      <a href="#about" class="scroll-hint" aria-label="Scroll to About">
+        <span>SCROLL</span><i></i>
+      </a>
+    </section>
+
+    <!-- =========================================================
+         ABOUT
+         ========================================================= -->
+    <section class="section about" id="about">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__index">01 // ABOUT</span>
+          <h2 class="section__title">WHO IS <em>MARLO?</em></h2>
+        </header>
+
+        <div class="about__grid">
+          <div class="about__avatar reveal tilt" id="aboutAvatar">
+            <!-- Filled by script.js (photo or holographic monogram) -->
+          </div>
+
+          <div class="about__body">
+            <div class="about__text reveal" id="aboutText"></div>
+            <p class="about__role reveal" data-bind="role">Software Developer | Programmer | Future Engineer</p>
+            <div class="stats" id="stats"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SKILLS
+         ========================================================= -->
+    <section class="section skills" id="skills">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__index">02 // SKILLS</span>
+          <h2 class="section__title">TECHNICAL <em>ARSENAL</em></h2>
+          <p class="section__sub">Tools, languages, and ways of thinking I use to build things.</p>
+        </header>
+        <div class="skills__grid" id="skillsGrid"></div>
+        <p class="skills__legend reveal">
+          <span><i class="lvl lvl--1"></i>BEGINNER</span>
+          <span><i class="lvl lvl--2"></i>INTERMEDIATE</span>
+          <span><i class="lvl lvl--3"></i>ADVANCED</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         PROJECTS
+         ========================================================= -->
+    <section class="section projects" id="projects">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__index">03 // PROJECTS</span>
+          <h2 class="section__title">SELECTED <em>PROJECTS</em></h2>
+          <p class="section__sub">Experiments, games, and applications from the lab.</p>
+        </header>
+        <div class="projects__grid" id="projectsGrid"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         EXPERIENCE / JOURNEY
+         ========================================================= -->
+    <section class="section journey" id="experience">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__index">04 // EXPERIENCE</span>
+          <h2 class="section__title">MY <em>JOURNEY</em></h2>
+        </header>
+        <ol class="timeline" id="timeline"></ol>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SOCIAL
+         ========================================================= -->
+    <section class="section social" id="social">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__index">05 // NETWORK</span>
+          <h2 class="section__title">OPEN <em>CHANNELS</em></h2>
+        </header>
+        <div class="social__grid" id="socialGrid"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CONTACT
+         ========================================================= -->
+    <section class="section contact" id="contact">
+      <div class="container contact__wrap">
+        <div class="contact__intro">
+          <header class="section__head reveal">
+            <span class="section__index">06 // CONTACT</span>
+            <h2 class="section__title">LET'S BUILD <em>SOMETHING</em></h2>
+          </header>
+          <p class="contact__lead reveal">Have an idea, project, or crazy experiment?<br />Let's turn it into something real.</p>
+          <a class="contact__mail reveal" id="contactMail" href="mailto:your.email@example.com">your.email@example.com</a>
+        </div>
+
+        <form class="contact__form glass reveal" id="contactForm" novalidate>
+          <div class="field">
+            <input type="text" id="fName" name="name" required autocomplete="name" placeholder=" " />
+            <label for="fName">NAME</label>
+            <span class="field__line"></span>
+          </div>
+          <div class="field">
+            <input type="email" id="fEmail" name="email" required autocomplete="email" placeholder=" " />
+            <label for="fEmail">EMAIL</label>
+            <span class="field__line"></span>
+          </div>
+          <div class="field">
+            <textarea id="fMessage" name="message" rows="5" required placeholder=" "></textarea>
+            <label for="fMessage">MESSAGE</label>
+            <span class="field__line"></span>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block" id="sendBtn"><span>SEND MESSAGE</span></button>
+
+          <div class="transmit" id="transmit" aria-hidden="true">
+            <div class="transmit__beam"></div>
+            <p class="transmit__text">ENCODING TRANSMISSION<span class="transmit__dots"></span></p>
+          </div>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="footer__logo">MRV</span>
+      <span class="footer__copy">© <span id="year"></span> <span data-bind="name">Marlo Rizky Valentino</span>. Crafted with code &amp; curiosity.</span>
+      <a href="#home" class="footer__top">BACK TO TOP ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
